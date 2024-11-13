@@ -1,0 +1,58 @@
+<div class="imgcontainer">
+  <img src="../../assets/imagens/logo.jpg" class="imgcentralizada"/>
+</div>
+<div class="centralizada">
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <input type="hidden" formControlName="idusuario" id="idusuario" [(ngModel)]="this.idUsuario" />
+      <label for="nome" class="form-label">Nome completo:</label>
+      <input type="text" class="form-control" formControlName="nome" id="nome" placeholder="Digite seu nome completo">
+      <div *ngIf="formControls['nome'].invalid && (formControls['nome'].dirty || formControls['nome'].touched)">
+        <small class="error">Nome é obrigatório.</small>
+      </div>
+    </div>
+    <div class="mb-3 mt-3">
+      <label for="email" class="form-label">E-mail:</label>
+      <input type="email" class="form-control" formControlName="emailuser" id="email" placeholder="Digite seu e-mail cadastrado / ex: email@gmail.com">
+      <div *ngIf="formControls['emailuser'].invalid && (formControls['emailuser'].dirty || formControls['emailuser'].touched)">
+        <small class="error">Por favor, insira um e-mail válido.</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Senha:</label>
+      <input type="password" class="form-control" formControlName="senha" id="pwd" placeholder="Digite sua senha">
+      <div *ngIf="formControls['senha'].invalid && (formControls['senha'].dirty || formControls['senha'].touched)">
+        <small class="error">A senha deve ter no mínimo 6 caracteres.</small>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="pwdcf" class="form-label">Confirmação de senha:</label>
+      <input type="password" class="form-control" formControlName="pwdcf" id="pwdcf" placeholder="Repita a senha">
+      <div *ngIf="hasPasswordMismatchError() && (formControls['pwdcf'].dirty || formControls['pwdcf'].touched)">
+        <small class="error">As senhas não coincidem.</small>
+      </div>
+    </div>
+    <div class="form-check mb-3">
+      <label class="form-check-label">
+        <input class="form-check-input" formControlName="termos" type="checkbox"> Aceito os Termos de Uso e Privacidade e o Contrato de Serviço
+      </label>
+      <div *ngIf="formControls['termos'].invalid && (formControls['termos'].dirty || formControls['termos'].touched)">
+        <small class="error">Você deve aceitar os termos para continuar.</small>
+      </div>
+    </div>
+    <div id="btncentralizado">
+      <button type="submit" class="btn btn-primary btncriarconta" [disabled]="myForm.invalid || hasPasswordMismatchError()">Criar Conta</button>
+    </div>
+
+  </form>
+  <div class="row">
+    <div class="col-sm-12">
+        <div id="rowResult" class="alert alert-success" role="alert" style="display: none; margin-top:10px">
+            <span style="font-weight: bold;">Conta criada com sucesso!</span>
+        </div>
+    </div>
+    <div id="rowErro" class="alert alert-danger" style="display: none; margin-top:10px">
+      <ul><li *ngFor="let errorMessage of errorMessages">{{ errorMessage }}</li></ul>
+    </div>
+  </div>
+</div>

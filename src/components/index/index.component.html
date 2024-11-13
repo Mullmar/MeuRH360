@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+    <title>Cadastro de Empresa</title>
+  </head>
+  <body>
+    <div class="content">
+
+      <h2>Olá {{primeiroNome}}!</h2>
+      <br />
+      <form [formGroup]="myForm">
+        <input type="hidden" formControlName="idusuario" />
+        <div id="btncentralizado">
+          <input type="button" class="btn btn-primary"  value="Iniciar Configuração" (click)="editarForm()" />
+        </div>
+      </form>
+    </div>
+    <app-sidebar-menu />
+  </body>
+</html>

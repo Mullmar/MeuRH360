@@ -1,0 +1,58 @@
+<div class="container" *ngIf="this.reg">
+  <h2>Minha Empresa</h2>
+  <hr />
+  <div class="button-row">
+    <button class="btn btn-custom" (click)="editarForm()"><i class="fas fa-edit"></i> Editar Empresa</button>
+    <button class="btn btn-custom"><i class="fas fa-sitemap"></i> Gestão de Filiais</button>
+    <button class="btn btn-custom"><i class="fas fa-money-bill-wave"></i> Faixa Salariais</button>
+    <button class="btn btn-custom"><i class="fas fa-level-up-alt"></i> Job Level</button>
+  </div>
+  <div class="info-section">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="nomeEmpresa">Nome da Empresa</label>
+        <span id="nomeEmpresa">{{ form.get('nomeEmpresa')?.value }}</span>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="cnpjEmpresa">CNPJ da Empresa</label>
+        <span id="cnpjEmpresa">{{ form.get('cnpj')?.value }}</span>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="nomeAdministrador">Nome do Administrador</label>
+        <span id="nomeAdministrador">{{ form.get('nomeAdm')?.value }}</span>
+      </div>
+  </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="cpf">CPF</label>
+        <span id="cpf">{{ form.get('cpf')?.value }}</span>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="email">E-mail</label>
+        <span id="email">{{ form.get('emailEmpresa')?.value }}</span>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="telefone">Telefone</label>
+        <span id="telefone">{{ form.get('celular')?.value }}</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="cep">CEP</label>
+        <span id="cep">{{ form.get('cep')?.value }}</span>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="endereco">Endereço</label>
+        <span id="endereco">{{ form.get('endereco')?.value + ', ' + form.get('complemento')?.value + ', ' + form.get('estado')?.value + ', ' + form.get('cidade')?.value}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!this.reg" class="container">
+  <p>Empresa não cadastrada!</p>
+  <div id="btncentralizado">
+    <input type="button" class="btn btn-primary"  value="Iniciar Configuração" (click)="editarForm()">
+  </div>
+</div>
+<app-sidebar-menu />
+

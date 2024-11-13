@@ -1,0 +1,41 @@
+.button-row { margin-bottom: 20px; }
+
+.button-row button { margin-right: 10px; }
+
+.info-row { margin-bottom: 10px; }
+
+.info-row div { display: inline-block; width: 30%; }
+
+.form-group { margin-bottom: 15px; }
+
+.form-group label { display: block; font-weight: bold; }
+
+.form-group span { display: block; }
+
+.form-row { display: flex; justify-content: space-between; }
+
+.form-row .form-group { flex: 1;}
+
+.container {
+  padding: 0px;
+  color: #092045;
+  font-weight: bold;
+  position:absolute;
+  right: 50px;
+  top: 20px;
+}
+
+span {
+  font-weight: normal;
+}
+
+.btn-custom {
+  background-color: white;
+  border: 2px solid #092045;
+  color: #092045;
+}
+
+.btn-custom:hover {
+  background-color: #092045;
+  color: white;
+}

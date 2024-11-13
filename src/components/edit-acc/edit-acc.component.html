@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+  <title>Cadastro de Empresa</title>
+</head>
+<body>
+
+  <div class="container">
+      <h2>Editar Empresa</h2>
+      <hr />
+
+
+    <form [formGroup]="formEdit" (ngSubmit)="onSubmit()">
+      <!-- Linha 1: Tipo de Empresa -->
+      <div class="form-group">
+        <label for="tipoEmpresa">Tipo de Empresa</label>
+        <input type="text" class="form-control" formControlName="tipoEmpresa" id="tipoEmpresa" placeholder="Digite o tipo de empresa">
+        <div *ngIf="formControls['tipoEmpresa'].invalid && (formControls['tipoEmpresa'].dirty || formControls['tipoEmpresa'].touched)">
+          <small class="error">Tipo de Empresa só pode ter até 50 caracteres.</small>
+        </div>
+      </div>
+
+      <!-- Linha 2: Nome da Empresa, CNPJ da Empresa -->
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="nomeEmpresa">Nome da Empresa</label>
+          <input type="text" class="form-control" formControlName="nomeEmpresa" id="nomeEmpresa" placeholder="Digite o nome da empresa">
+          <div *ngIf="formControls['nomeEmpresa'].invalid && (formControls['nomeEmpresa'].dirty || formControls['nomeEmpresa'].touched)">
+            <small class="error">Nome da empresa é obrigatório.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="cnpjEmpresa">CNPJ da Empresa</label>
+          <input type="text" class="form-control" formControlName="cnpj" id="cnpjEmpresa" placeholder="Digite o CNPJ da empresa" onfocus="MascaraCNPJ('#cnpjEmpresa')">
+          <div *ngIf="(formControls['cnpj'].invalid && (formControls['cnpj'].dirty || formControls['cnpj'].touched)) || (!ValidarCNPJ(this.formEdit.get('cnpj')?.value) && this.formEdit.get('cnpj')?.value !== '' && this.formEdit.get('cnpj')?.value !== null)">
+            <small class="error">CNPJ inválido.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="cep">CEP</label>
+          <input type="text" class="form-control" formControlName="cep" id="cep" placeholder="Digite o CEP" (blur)="BuscarCep($event)" onfocus="MascaraCEP('#cep')" />
+          <div *ngIf="formControls['cep'].invalid && (formControls['cep'].dirty || formControls['cep'].touched) || !this.cepValido && (formControls['cep'].dirty || formControls['cep'].touched)">
+            <small class="error">CEP inválido.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linha 3: CEP, Endereço, Bairro, Estado, Cidade, Complemento -->
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="endereco">Endereço</label>
+          <input type="text" class="form-control" formControlName="endereco" id="endereco" placeholder="Digite o endereço">
+          <div *ngIf="formControls['endereco'].invalid && (formControls['endereco'].dirty || formControls['endereco'].touched)">
+            <small class="error">Endereço só pode ter até 255 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="bairro">Bairro</label>
+          <input type="text" class="form-control" formControlName="bairro" id="bairro" placeholder="Digite o bairro">
+          <div *ngIf="formControls['bairro'].invalid && (formControls['bairro'].dirty || formControls['bairro'].touched)">
+            <small class="error">Bairro só pode ter até 50 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-1">
+          <label for="estado">Estado</label>
+          <input type="text" class="form-control" formControlName="estado" id="estado" placeholder="Digite o estado">
+          <div *ngIf="formControls['estado'].invalid && (formControls['estado'].dirty || formControls['estado'].touched)">
+            <small class="error">Estado deve ter 2 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cidade">Cidade</label>
+          <input type="text" class="form-control" formControlName="cidade" id="cidade" placeholder="Digite a cidade">
+          <div *ngIf="formControls['cidade'].invalid && (formControls['cidade'].dirty || formControls['cidade'].touched)">
+            <small class="error">Cidade só pode ter até 50 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="complemento">Complemento</label>
+          <input type="text" class="form-control" formControlName="complemento" id="complemento" placeholder="Digite o complemento">
+          <div *ngIf="formControls['complemento'].invalid && (formControls['complemento'].dirty || formControls['complemento'].touched)">
+            <small class="error">Complemento só pode ter até 50 caracteres.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linha 4: Celular, Nome do Administrador, CPF, E-mail -->
+      <div class="form-row">
+        <div class="form-group col-md-3">
+          <label for="celular">Celular</label>
+          <input type="text" class="form-control" formControlName="celular" id="celular" placeholder="Digite o celular" onfocus="MascaraCelular('#celular')">
+          <div *ngIf="formControls['celular'].invalid && (formControls['celular'].dirty || formControls['celular'].touched)">
+            <small class="error">Celular é obrigatório e deve ter pelo menos 8 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="nomeAdministrador">Nome do Administrador</label>
+          <input type="text" class="form-control" formControlName="nomeAdm" id="nomeAdministrador" placeholder="Digite o nome do administrador">
+          <div *ngIf="formControls['nomeAdm'].invalid && (formControls['nomeAdm'].dirty || formControls['nomeAdm'].touched)">
+            <small class="error">Nome do administrador é obrigatório e deve ter até 255 caracteres.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="cpf">CPF</label>
+          <input type="text" class="form-control" formControlName="cpf" id="cpf" placeholder="Digite o CPF" onfocus="MascaraCPF('#cpf')">
+          <div *ngIf="(formControls['cpf'].invalid && (formControls['cpf'].dirty || formControls['cpf'].touched)) || (!ValidarCPF(this.formEdit.get('cpf')?.value) && this.formEdit.get('cpf')?.value !== '' && this.formEdit.get('cpf')?.value !== null)">
+            <small class="error">CPF inválido.</small>
+          </div>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" formControlName="emailEmpresa" id="email" placeholder="Digite o e-mail">
+          <div *ngIf="formControls['emailEmpresa'].invalid && (formControls['emailEmpresa'].dirty || formControls['emailEmpresa'].touched)">
+            <small class="error">E-mail é obrigatório e deve ter até 75 caracteres.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Linha 5: Botão Cancelar, Botão Salvar -->
+      <div class="form-group botoes">
+        <button type="button" class="btn btn-secondary">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formEdit.invalid || !ValidarCPF(this.formEdit.get('cpf')?.value) || !ValidarCNPJ(this.formEdit.get('cnpj')?.value)">Salvar</button>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+            <div id="rowResult" class="alert alert-success" role="alert" style="display: none; margin-top:10px">
+                <span>Empresa salva com sucesso!</span>
+            </div>
+            <div id="rowErro" class="alert alert-danger" style="display: none; margin-top:10px">
+              <ul><li *ngFor="let errorMessage of errorMessages">{{ errorMessage }}</li></ul>
+            </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-sidebar-menu />
+
+</body>
+</html>
